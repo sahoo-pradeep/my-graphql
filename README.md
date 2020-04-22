@@ -1,1 +1,1 @@
-# my-graphql
+# My GraphQL
