@@ -1,0 +1,152 @@
+1. getOrderHistory
+
+{
+  getOrders(filter: 
+    {
+    	userId: {eq : "723a9e09-450d-4f36-ba65-2f548642bf2d"},
+    	orderDate: {between: {from: "2020-03-01", to: "2020-03-15"}}
+    }
+    merchantId: "6c57599f-2c43-4c82-806a-e07c3410f5d3", 
+    offset: 0, 
+    limit: 10) {
+    count,
+    orders{
+    	rETransactionId
+    }
+  }
+}
+
+SELECT * FROM oms.tblretransaction WHERE MerchantId = :merchantId  AND UserId = :UserId  AND OrderDate BETWEEN :OrderDateFrom AND :OrderDateTo  LIMIT :limit OFFSET :offset;
+
+{OrderDateTo=2020-03-15, OrderDateFrom=2020-03-01, offset=5, merchantId=6c57599f-2c43-4c82-806a-e07c3410f5d3, UserId=723a9e09-450d-4f36-ba65-2f548642bf2d, limit=10}
+
+2. getOrdersByDeliverySlot
+
+{
+  getOrders(filter: 
+    {
+		orderStatus: {eq : "D"},
+		deliverySlotId: {eq: "1234"},
+		orderDate: {between: {from: "2020-03-01", to: "2020-03-15"}}
+    }
+    merchantId: "6c57599f-2c43-4c82-806a-e07c3410f5d3", 
+    offset: 0, 
+    limit: 10) {
+    count,
+   	orders{
+    	rETransactionId
+    }
+  }
+}
+
+SELECT * FROM oms.tblretransaction WHERE MerchantId = :merchantId  AND OrderDate BETWEEN :OrderDateFrom AND :OrderDateTo  AND OrderStatus = :OrderStatus  AND DeliverySlotID = :DeliverySlotID  LIMIT :limit OFFSET :offset;
+
+{OrderDateTo=2020-03-15, OrderStatus=D, OrderDateFrom=2020-03-01, offset=5, merchantId=6c57599f-2c43-4c82-806a-e07c3410f5d3, limit=10, DeliverySlotID=1234}
+
+3. getOrdersByPromisedDate
+
+{
+  getOrders(filter: 
+    {
+		orderStatus: {eq : "A"},
+		orderDate: {between: {from: "2020-03-01", to: "2020-03-15"}}
+		promisedDate: {eq: "2020-03-15"}
+    }
+    merchantId: "6c57599f-2c43-4c82-806a-e07c3410f5d3", 
+    offset: 0, 
+    limit: 10) {
+    count,
+    orders{
+      rETransactionId
+    }
+  }
+}
+
+
+SELECT * FROM oms.tblretransaction WHERE MerchantId = :merchantId  AND OrderDate BETWEEN :OrderDateFrom AND :OrderDateTo  AND OrderStatus = :OrderStatus  AND DemandedDeliveryDate = :DemandedDeliveryDate  LIMIT :limit OFFSET :offset;
+
+{OrderDateTo=2020-03-15, OrderStatus=D, OrderDateFrom=2020-03-01, offset=5, merchantId=6c57599f-2c43-4c82-806a-e07c3410f5d3, limit=10, DemandedDeliveryDate=2020-03-15}
+
+
+4. getOrdersByStatus
+
+{
+  getOrders(filter: 
+    {
+		orderStatus: {eq : "A"},
+		subStatus: {eq : "SE"},
+		orderDate: {between: {from: "2020-03-01", to: "2020-03-15"}}
+    }
+    merchantId: "6c57599f-2c43-4c82-806a-e07c3410f5d3", 
+    offset: 0, 
+    limit: 10) {
+    count,
+    orders{
+      rETransactionId
+    }
+  }
+}
+
+SELECT * FROM oms.tblretransaction WHERE MerchantId = :merchantId  AND OrderDate BETWEEN :OrderDateFrom AND :OrderDateTo  AND OrderStatus = :OrderStatus  AND SubStatus = :SubStatus  LIMIT :limit OFFSET :offset;
+
+{OrderDateTo=2020-03-15, OrderStatus=A, OrderDateFrom=2020-03-01, offset=5, merchantId=6c57599f-2c43-4c82-806a-e07c3410f5d3, limit=10, SubStatus=AB}
+
+5. getOrdersById
+
+{
+  getOrders(filter: 
+    {
+		orderId: {in: ["1111", "2222", "3333"]}
+    }
+    merchantId: "6c57599f-2c43-4c82-806a-e07c3410f5d3", 
+    offset: 0, 
+    limit: 10) {
+    count,
+    orders{
+      rETransactionId
+    }
+  }
+}
+
+
+SELECT * FROM oms.tblretransaction WHERE MerchantId = :merchantId  AND RETransactionId IN (:RETransactionId)  LIMIT :limit OFFSET :offset;
+
+{RETransactionId=[1111, 2222, 3333], offset=5, merchantId=6c57599f-2c43-4c82-806a-e07c3410f5d3, limit=10}
+
+6. getOrdersByPaymentOption("PAYTM")
+
+{
+  getOrders(filter: 
+    {
+		orderStatus: {eq : "P"},
+		paymentFilter: {
+			paymentOption: {eq: "PAYTM"}
+        }
+    }
+    merchantId: "6c57599f-2c43-4c82-806a-e07c3410f5d3", 
+    offset: 0, 
+    limit: 10) {
+    count,
+    orders{
+		rETransactionId
+    }
+    warnings{
+		code
+		message
+    }
+    errors{
+		code
+		message
+    }
+  }
+}
+
+SELECT TXN.* FROM oms.tblretransaction TXN  INNER JOIN oms.tblmerchanttransaction MERTXN ON (TXN.RETransactionId = MERTXN.REwsTransactionId)  WHERE TXN.MerchantId = :merchantId  AND TXN.OrderStatus = :OrderStatus  AND MERTXN.PaymentOption = :PaymentOption  LIMIT :limit OFFSET :offset;
+
+{OrderStatus=P, offset=0, merchantId=6c57599f-2c43-4c82-806a-e07c3410f5d3, limit=10, PaymentOption=PAYTM}
+
+
+
+
+
+
