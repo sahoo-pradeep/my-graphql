@@ -1,0 +1,19 @@
+type Order {
+    orderId: ID!
+    orderDate: LocalDate
+    orderStatus: String
+    transactions: [Transaction]
+}
+
+type Query {
+    getOrders
+        (orderFilters: [OrderFilter!],
+        transactionFilters: [PaymentFilter!],
+        sortList: [OrderSort!],
+        limit: Int!,
+        offset: Int!) : OrderResponse
+}
+
+type Mutation {
+
+}

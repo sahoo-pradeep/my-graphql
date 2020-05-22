@@ -1,0 +1,64 @@
+#Filter orders based on fields
+input OrderFilter {
+    field: OrderField!,
+    value: QueryCondition!
+}
+
+input PaymentFilter {
+    field: PaymentField!,
+    value: QueryCondition!
+}
+
+input OrderSort {
+    field: OrderField!,
+    sortDirection: SortDirection
+}
+
+enum SortDirection {
+    ASC,
+    DESC
+}
+
+# Select fields to add filters on result orders
+enum OrderField {
+    # Long ("1234567")
+    orderId,
+    # LocalDate ("2020-01-30")
+    orderDate,
+    # String ("A")
+    orderStatus
+}
+
+# Select fields to add filters on result orders
+enum PaymentField {
+    # String ("HDFC")
+    paymentOption
+}
+
+# Provide one of the below conditions
+input QueryCondition {
+    #Equals (=)
+    eq: String
+    #Not Equals (!=)
+    ne: String
+    #Less Than (<)
+    lt: String
+    #Greater Than (>)
+    gt: String
+    #Less Than Equals (<=)
+    lte: String
+    #Greater Than Equals(>=)
+    gte: String
+    #In (IN [List of Strings])
+    in: [String!]
+    #Not In (NOT IN [List of Strings])
+    nin: [String!]
+    #Between (BETWEEN {from: Value1, to: Value2})
+    between: Between
+}
+
+# In Between clause, 'from' is inclusive and 'to' is exclusive
+input Between {
+    from: String!
+    to: String!
+}

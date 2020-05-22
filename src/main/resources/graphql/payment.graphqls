@@ -1,0 +1,16 @@
+type Payment {
+    id: ID!
+    orderId: Long!
+    paymentOption: String
+    amount: Int
+    paymentDate: LocalDate
+    status: String
+}
+
+extend type Query {
+
+}
+
+extend type Mutation {
+
+}
