@@ -1,0 +1,34 @@
+query {
+  getOrders(
+    orderFilters : [
+      {field: ORDER_DATE, value: {between : {from: "2020-01-01", to: "2020-03-31"}}},
+      {field: ORDER_STATUS, value: {eq : "A"}}
+    ],
+    transactionFilters: [
+      {field: PAYMENT_OPTION, value: {eq: "PAYTM"}}
+    ],
+    sortList : [
+      {field: ORDER_DATE, sortDirection: ASC}
+    ],
+    limit: 10,
+    offset: 0
+  ){
+    count,
+    orders {
+      orderId,
+      orderDate,
+      orderStatus,
+      totalAmount,
+      transactions {
+        transactionId,
+        paymentOption,
+        amount,
+        transactionDate,
+        transactionStatus
+      }
+    },
+    errors {
+      message
+    }
+  }
+}

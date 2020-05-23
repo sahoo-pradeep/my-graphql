@@ -1,0 +1,8 @@
+type Transaction {
+    transactionId: Long!
+    orderId: Long!
+    paymentOption: String
+    amount: Int
+    transactionDate: LocalDateTime
+    transactionStatus: String
+}

@@ -4,8 +4,8 @@ input OrderFilter {
     value: QueryCondition!
 }
 
-input PaymentFilter {
-    field: PaymentField!,
+input TransactionFilter {
+    field: TransactionField!,
     value: QueryCondition!
 }
 
@@ -22,17 +22,19 @@ enum SortDirection {
 # Select fields to add filters on result orders
 enum OrderField {
     # Long ("1234567")
-    orderId,
+    ORDER_ID,
     # LocalDate ("2020-01-30")
-    orderDate,
+    ORDER_DATE,
     # String ("A")
-    orderStatus
+    ORDER_STATUS
 }
 
 # Select fields to add filters on result orders
-enum PaymentField {
-    # String ("HDFC")
-    paymentOption
+enum TransactionField {
+    # String ("PayTM")
+    PAYMENT_OPTION,
+    # String ("A")
+    TRANSACTION_STATUS
 }
 
 # Provide one of the below conditions
