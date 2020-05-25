@@ -1,8 +1,8 @@
 package projects.sahoo.mygraphql.service.api;
 
-import projects.sahoo.mygraphql.filter.OrderFilter;
-import projects.sahoo.mygraphql.filter.OrderSort;
-import projects.sahoo.mygraphql.filter.TransactionFilter;
+import projects.sahoo.mygraphql.graphql_filter.OrderFilter;
+import projects.sahoo.mygraphql.graphql_filter.OrderSort;
+import projects.sahoo.mygraphql.graphql_filter.TransactionFilter;
 import projects.sahoo.mygraphql.model.Order;
 
 import java.util.List;

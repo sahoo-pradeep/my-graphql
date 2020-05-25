@@ -1,3 +1,4 @@
 type ErrorMessage {
+    code: String
     message: String
 }

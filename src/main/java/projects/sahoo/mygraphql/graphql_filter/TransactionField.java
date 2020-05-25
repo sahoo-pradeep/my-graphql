@@ -1,4 +1,4 @@
-package projects.sahoo.mygraphql.filter;
+package projects.sahoo.mygraphql.graphql_filter;
 
 public enum TransactionField implements QueryField {
     PAYMENT_OPTION("PaymentOption", DataType.String),

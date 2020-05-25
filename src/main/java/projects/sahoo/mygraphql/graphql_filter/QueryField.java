@@ -1,4 +1,4 @@
-package projects.sahoo.mygraphql.filter;
+package projects.sahoo.mygraphql.graphql_filter;
 
 public interface QueryField {
     String getColumnName();

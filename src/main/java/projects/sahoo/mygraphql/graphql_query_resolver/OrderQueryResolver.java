@@ -5,9 +5,9 @@ import graphql.schema.DataFetchingEnvironment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import projects.sahoo.mygraphql.filter.OrderFilter;
-import projects.sahoo.mygraphql.filter.OrderSort;
-import projects.sahoo.mygraphql.filter.TransactionFilter;
+import projects.sahoo.mygraphql.graphql_filter.OrderFilter;
+import projects.sahoo.mygraphql.graphql_filter.OrderSort;
+import projects.sahoo.mygraphql.graphql_filter.TransactionFilter;
 import projects.sahoo.mygraphql.model.ErrorMessage;
 import projects.sahoo.mygraphql.model.Order;
 import projects.sahoo.mygraphql.model.OrderResponse;
@@ -51,7 +51,8 @@ public class OrderQueryResolver implements GraphQLQueryResolver {
                             + "{}, sortList = {}, limit = {}, offset = {}", orderFilters,
                     transactionFilters, sortList, limit, offset, e);
 
-            List<ErrorMessage> errors = Arrays.asList(new ErrorMessage(e.getMessage()));
+            List<ErrorMessage> errors =
+                    Arrays.asList(new ErrorMessage("GRAPHQL_QUERY_FAILED", e.getMessage()));
             return OrderResponse.builder().count(0L).errors(errors).build();
         }
     }

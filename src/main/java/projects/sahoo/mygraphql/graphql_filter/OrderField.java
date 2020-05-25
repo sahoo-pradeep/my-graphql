@@ -1,4 +1,4 @@
-package projects.sahoo.mygraphql.filter;
+package projects.sahoo.mygraphql.graphql_filter;
 
 public enum OrderField implements QueryField {
     ORDER_ID("orderId", DataType.Long),
