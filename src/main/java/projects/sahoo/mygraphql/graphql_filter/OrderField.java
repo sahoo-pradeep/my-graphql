@@ -1,9 +1,9 @@
 package projects.sahoo.mygraphql.graphql_filter;
 
 public enum OrderField implements QueryField {
-    ORDER_ID("orderId", DataType.Long),
-    ORDER_DATE("orderDate", DataType.LocalDate),
-    ORDER_STATUS("orderStatus", DataType.String);
+    ORDER_ID("order_id", DataType.Long),
+    ORDER_DATE("order_date", DataType.LocalDate),
+    ORDER_STATUS("order_status", DataType.String);
 
     OrderField(String columnName, DataType dataType) {
         this.columnName = columnName;
